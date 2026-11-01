@@ -1,0 +1,85 @@
+# ==============================================================================
+# Unity .gitignore Template (Optimized for Unity 6 & macOS)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Unity generated cache & temporary directories (Gigabytes of auto-generated data)
+# ------------------------------------------------------------------------------
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Unity Asset Store cache
+AssetStoreCache/
+
+# ------------------------------------------------------------------------------
+# Visual Studio / Rider / VSCode generated solution and project files
+# (Unity auto-generates these from C# scripts)
+# ------------------------------------------------------------------------------
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity profiler / crash reports
+sysinfo.txt
+*.stackdump
+mono_crash.*.json
+
+# ------------------------------------------------------------------------------
+# IDE-specific files & directories
+# ------------------------------------------------------------------------------
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Visual Studio
+.vs/
+
+# ------------------------------------------------------------------------------
+# OS-generated files (macOS & Windows)
+# ------------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# ------------------------------------------------------------------------------
+# Builds & Executables
+# ------------------------------------------------------------------------------
+*.apk
+*.aab
+*.unitypackage
+*.app/
+*.exe
+
+# ------------------------------------------------------------------------------
+# Crashlytics & Analytics
+# ------------------------------------------------------------------------------
+crashlytics-build.properties
