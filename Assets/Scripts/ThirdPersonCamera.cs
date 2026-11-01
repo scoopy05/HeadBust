@@ -47,13 +47,22 @@ public class ThirdPersonCamera : MonoBehaviour
             currentYaw = target.eulerAngles.y;
         }
 
-        // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Lock cursor only if game is already active
+        if (GameManager.Instance == null || GameManager.Instance.isGameActive)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     private void Update()
     {
+        // If in menu or game over, keep cursor free for UI interaction
+        if (GameManager.Instance != null && !GameManager.Instance.isGameActive)
+        {
+            return;
+        }
+
         // Toggle cursor with Escape
         #if ENABLE_INPUT_SYSTEM
         if (UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -83,6 +92,7 @@ public class ThirdPersonCamera : MonoBehaviour
     private void LateUpdate()
     {
         if (target == null) return;
+        if (GameManager.Instance != null && !GameManager.Instance.isGameActive) return;
 
         // 1. Read Mouse Orbit (Free camera look like PUBG)
         if (Cursor.lockState == CursorLockMode.Locked)

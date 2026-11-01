@@ -119,6 +119,9 @@ public class GunShooter : MonoBehaviour
         // 1. Recover recoil smoothly back to rest position
         HandleRecoilRecovery();
 
+        // If game is in menu or game over, block shooting
+        if (GameManager.Instance != null && !GameManager.Instance.isGameActive) return;
+
         // 2. Check for Manual Reload Input ('R' key)
         bool reloadPressed = false;
         #if ENABLE_INPUT_SYSTEM
@@ -216,8 +219,14 @@ public class GunShooter : MonoBehaviour
         {
             targetPoint = validHit.point;
 
-            // 1. Spawn Bullet Hole Decal flat on the surface
-            if (bulletHolePrefab != null)
+            // 1. If we hit a character with Health (Enemy/Player), inflict damage (no wall bullet hole decal!)
+            Health targetHealth = validHit.collider.GetComponentInParent<Health>();
+            if (targetHealth != null)
+            {
+                targetHealth.TakeDamage(1); // 1 bullet hit!
+            }
+            // 2. Otherwise, we hit an environment surface (Walls, Ground, Obstacles) -> Spawn Bullet Hole Decal!
+            else if (bulletHolePrefab != null)
             {
                 // Nudge slightly along normal to prevent Z-fighting flickering
                 Vector3 decalPos = validHit.point + (validHit.normal * 0.002f);
@@ -229,13 +238,6 @@ public class GunShooter : MonoBehaviour
 
                 // Auto-cleanup after lifetime expires
                 Destroy(hole, bulletHoleLifetime);
-            }
-
-            // 2. Inflict Damage on any Target with a Health component
-            Health targetHealth = validHit.collider.GetComponentInParent<Health>();
-            if (targetHealth != null)
-            {
-                targetHealth.TakeDamage(1); // 1 bullet hit!
             }
 
             Debug.Log($"[Hitscan] Hit: {validHit.collider.name} at {validHit.point} | Surface Normal: {validHit.normal}");
